@@ -62,7 +62,7 @@ const ChannelCard = ({ video }) => {
         </Link>
         <div className="flex item-center p-2">
           <LazyLoadImage
-            className="w-10 h-10 rounded-full mt-1"
+            className="w-9 h-9 rounded-full mt-1"
             src={video?.owner?.avatar?.url || "/girl.png"}
             alt="Avatar"
           />
