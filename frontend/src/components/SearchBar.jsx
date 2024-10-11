@@ -52,8 +52,8 @@ const SearchBar = ({ isOpen, openSearchBar }) => {
     const searchValue = query || searchQuery; // Use query if provided
     if (searchValue !== "") {
       navigate(`/search`, { state: { query: searchValue } });
-      setSuggestions([]); // Clear suggestions
       setSearchQuery("");
+      setSuggestions([]); // Clear suggestions
     }
   };
 
