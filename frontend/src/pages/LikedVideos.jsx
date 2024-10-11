@@ -26,7 +26,7 @@ const LikedVideos = () => {
                 <Card video={video} />
               </Suspense>
             ))
-          : ""}
+          : "You have not liked any videos yet."}
       </div>
     </>
   );

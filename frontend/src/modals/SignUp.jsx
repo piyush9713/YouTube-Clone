@@ -43,7 +43,10 @@ const SignUp = ({ setSelectedItem }) => {
             <button
               className=" p-2 rounded-full shadow-sm hover:shadow-lg active:bg-slate-300 hover:bg-[#F2F2F2]  cursor-pointer"
               onClick={() => setSelectedItem(null)}>
-              <RxCross1 size={"24px"} />
+              <RxCross1
+                size={"24px"}
+                className={`${registering ? " cursor-not-allowed" : ""}`}
+              />
             </button>
           </div>
           <form onSubmit={handleSubmit(onSubmit)} noValidate>

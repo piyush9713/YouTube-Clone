@@ -6,7 +6,6 @@ const apiUrl = import.meta.env.VITE_API_URL;
 const Dashboard = () => {
   const [stats, setStats] = useState(null);
   const [loading, setLoading] = useState(true);
-  const [error, setError] = useState(null);
 
   useEffect(() => {
     const fetchChannelStats = async () => {
@@ -15,8 +14,7 @@ const Dashboard = () => {
         setStats(response?.data?.data);
         // toast.success("Channel stats fetched successfully");
       } catch (err) {
-        setError("Failed to fetch channel stats");
-        toast.error(err.response?.data?.message || "An error occurred");
+        toast.error(err?.response?.data?.message || "An error occurred");
       } finally {
         setLoading(false);
       }
@@ -41,15 +39,14 @@ const Dashboard = () => {
       </h1> */}
       {/* Free-flowing Flexbox layout */}
       <div className="w-full max-w-6xl flex flex-wrap justify-center gap-6 relative funky-layout">
-        <StatCard title="Total Videos" value={stats.totalVideos} />
-        <StatCard title="Total Views" value={stats.totalViews} />
-        <StatCard title="Total Subscribers" value={stats.subscribers} />
-        <StatCard title="Subscribed To" value={stats.subscribedTo} />
-        <StatCard title="Total Likes" value={stats.totalLikes} />
-        <StatCard title="Total Comments" value={stats.totalComments} />
-        <StatCard title="Total Tweets" value={stats.totalTweets} />
+        <StatCard title="Total Videos" value={stats?.totalVideos || 0} />
+        <StatCard title="Total Views" value={stats?.totalViews || 0} />
+        <StatCard title="Total Subscribers" value={stats?.subscribers || 0} />
+        <StatCard title="Subscribed To" value={stats?.subscribedTo || 0} />
+        <StatCard title="Total Likes" value={stats?.totalLikes || 0} />
+        <StatCard title="Total Comments" value={stats?.totalComments || 0} />
+        <StatCard title="Total Tweets" value={stats?.totalTweets || 0} />
       </div>
-      {error && <p className="text-red-600 mt-6">{error}</p>}
     </div>
   );
 };

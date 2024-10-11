@@ -27,7 +27,7 @@ const Subscription = () => {
                 <Card video={video} />
               </Suspense>
             ))
-          : ""}
+          : "You have no subscriptions yet."}
       </div>
     </>
   );

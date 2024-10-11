@@ -47,7 +47,7 @@ const YourChannel = () => {
                 <ChannelCard video={video} />
               </Suspense>
             ))
-          : ""}
+          : " You have not uploaded any videos yet."}
       </div>
     </div>
   );

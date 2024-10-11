@@ -46,13 +46,19 @@ const Home = () => {
           dataLength={videos?.length || 0}
           next={fetchMoreData}
           hasMore={hasNextPage}
-          loader={<DotSpinner />}
+          loader={
+            <div className="flex justify-center items-center py-4">
+              <DotSpinner />
+            </div>
+          }
           scrollThreshold={0.8}
           endMessage={
-            <p className="text-center py-4">!No more videos yet...</p>
+            <p className="text-center py-4">
+              --------- No more videos ---------
+            </p>
           }
           scrollableTarget="scrollableDiv">
-          <div className="pt-3 sm:px-4 lg:pl-0 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-3 gap-5 mb-3">
+          <div className="pt-3 sm:px-4 lg:pl-0 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-3 gap-5 ">
             {videos?.length > 0
               ? videos.map((video) => (
                   <Suspense key={video._id} fallback={<CardLoader />}>

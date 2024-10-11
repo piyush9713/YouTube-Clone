@@ -2,16 +2,18 @@
 /* eslint-disable react/no-unescaped-entities */
 // /* eslint-disable react/no-unescaped-entities */
 
-import { useContext, useEffect } from "react";
+import { useContext, useState } from "react";
 import { useForm } from "react-hook-form";
 import { RxCross1 } from "react-icons/rx";
 import { AuthContext } from "../context/AuthContext"; // Import AuthContext
 import { useNavigate } from "react-router-dom";
 import SignUp from "./SignUp";
+import DotSpinner from "../components/DotSpinner";
 
 const SignIn = ({ setSelectedItem }) => {
   const navigate = useNavigate();
-  const { signIn, user } = useContext(AuthContext);
+  const [loggingIn, setLoggingIn] = useState(false);
+  const { signIn } = useContext(AuthContext);
   const {
     register,
     handleSubmit,
@@ -20,16 +22,25 @@ const SignIn = ({ setSelectedItem }) => {
   } = useForm();
 
   const onSubmit = async (data) => {
-    await signIn(data);
-    reset();
-  };
-
-  useEffect(() => {
-    if (user) {
+    try {
+      setLoggingIn(true);
+      await signIn(data);
+      reset();
+      setLoggingIn(false);
       navigate("/");
       setSelectedItem(null);
+    } catch (error) {
+      setLoggingIn(false);
+      console.log("Error signing in:", error);
     }
-  }, [user, navigate, setSelectedItem]);
+  };
+
+  // useEffect(() => {
+  //   if (user) {
+  //     navigate("/");
+  //     setSelectedItem(null);
+  //   }
+  // }, [user, navigate, setSelectedItem]);
 
   return (
     <div className="fixed inset-0 flex items-center justify-center z-50 bg-black bg-opacity-60">
@@ -42,7 +53,10 @@ const SignIn = ({ setSelectedItem }) => {
             <button
               className=" p-2 rounded-full shadow-sm hover:shadow-lg active:bg-slate-300 hover:bg-[#F2F2F2]  cursor-pointer"
               onClick={() => setSelectedItem(null)}>
-              <RxCross1 size={"24px"} />
+              <RxCross1
+                size={"24px"}
+                className={`${loggingIn ? " cursor-not-allowed" : ""}`}
+              />
             </button>
           </div>
 
@@ -107,9 +121,19 @@ const SignIn = ({ setSelectedItem }) => {
             {/* Submit Button */}
             <div className="text-left mt-6">
               <button
-                className="w-full select-none rounded-lg bg-gray-900 py-3 px-6 text-xs font-bold uppercase text-white shadow-md hover:shadow-lg transition-all"
-                type="submit">
-                Sign in
+                className={`w-full select-none rounded-lg bg-gray-900 py-3 px-6 text-xs font-bold uppercase text-white shadow-md hover:shadow-lg transition-all ${
+                  loggingIn ? " cursor-not-allowed" : ""
+                }`}
+                type="submit"
+                disabled={loggingIn}>
+                {loggingIn ? (
+                  <span className="flex items-center gap-2 justify-center">
+                    <DotSpinner />
+                    Logging...
+                  </span>
+                ) : (
+                  "Sign Up"
+                )}
               </button>
             </div>
           </form>

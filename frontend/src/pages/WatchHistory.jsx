@@ -26,7 +26,7 @@ const WatchHistory = () => {
                 <Card video={video} />
               </Suspense>
             ))
-          : ""}
+          : " You have not watched any videos yet."}
       </div>
     </>
   );
