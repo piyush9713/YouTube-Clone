@@ -18,7 +18,7 @@ const VideoResults = () => {
       setIsLoading(true);
       try {
         const response = await axios.get(
-          `${ apiUrl}/v1/videos?query=${state.query}`
+          `${apiUrl}/v1/videos?query=${state.query}`
         );
         setVideos(response.data.data.videos);
       } catch (error) {

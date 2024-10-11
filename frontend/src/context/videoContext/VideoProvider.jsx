@@ -9,10 +9,14 @@ export const VideoProvider = ({ children }) => {
   const [state, dispatch] = useReducer(videoReducer, initialState);
 
   const fetchVideos = useCallback(async (page = 1) => {
-    dispatch({ type: "FETCH_VIDEOS_START" });
+    if (page === 1) {
+      dispatch({ type: "FETCH_VIDEOS_START" });
+    } else {
+      dispatch({ type: "FETCH_MORE_VIDEOS_START" });
+    }
+
     try {
       const response = await axios.get(`${apiUrl}/v1/videos?page=${page}`);
-      console.log(response?.data?.data);
       dispatch({
         type: page === 1 ? "FETCH_VIDEOS_SUCCESS" : "FETCH_MORE_VIDEOS_SUCCESS",
         payload: response?.data?.data,

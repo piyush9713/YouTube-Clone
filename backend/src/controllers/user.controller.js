@@ -91,11 +91,12 @@ const loginUser = asyncHandler(async (req, res) => {
   // console.log(loggedInUser);
 
   var options = {
-    httpOnly: true,
-    secure: process.env.NODE_ENV === "production",
+    httpOnly: true, // Ensures cookie can't be accessed via JavaScript
+    secure: process.env.NODE_ENV === "production", // Use Secure in production (HTTPS)
     // secure: true,
-    sameSite: "none",
-    maxAge: 24 * 60 * 60 * 1000, // 24 hours
+    sameSite: "None", // Required for cross-origin cookies
+    path: "/", // Make the cookie available on all routes
+    maxAge: 24 * 60 * 60 * 1000, // 1 day in milliseconds
   };
 
   return res

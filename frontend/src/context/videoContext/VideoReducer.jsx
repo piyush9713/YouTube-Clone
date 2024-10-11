@@ -4,14 +4,15 @@ export const initialState = {
     nextPage: null,
     hasNextPage: false,
   },
-  loading: false,
+  loading: false, // for the initial video fetch
+  isFetchingMore: false, // for loading more videos
   error: null,
 };
 
 export const videoReducer = (state, action) => {
   switch (action.type) {
     case "FETCH_VIDEOS_START":
-      return { ...state, loading: true, error: null };
+      return { ...state, loading: true, error: null, isFetchingMore: false };
     case "FETCH_VIDEOS_SUCCESS":
       return {
         ...state,
@@ -21,8 +22,11 @@ export const videoReducer = (state, action) => {
           hasNextPage: action.payload.hasNextPage,
         },
         loading: false,
+        isFetchingMore: false,
         error: null,
       };
+    case "FETCH_MORE_VIDEOS_START": // Added for "load more" videos
+      return { ...state, isFetchingMore: true, error: null };
     case "FETCH_MORE_VIDEOS_SUCCESS":
       return {
         ...state,
@@ -31,12 +35,16 @@ export const videoReducer = (state, action) => {
           nextPage: action.payload.nextPage,
           hasNextPage: action.payload.hasNextPage,
         },
-        loading: false,
+        isFetchingMore: false, // Keep isFetchingMore false after more videos are fetched
         error: null,
       };
-
     case "FETCH_VIDEOS_ERROR":
-      return { ...state, error: action.payload, loading: false };
+      return {
+        ...state,
+        error: action.payload,
+        loading: false,
+        isFetchingMore: false,
+      };
     default:
       return state;
   }
