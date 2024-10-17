@@ -85,7 +85,7 @@ const loginUser = asyncHandler(async (req, res) => {
   await user.save();
 
   const loggedInUser = await User.findOne(user._id).select(
-    "-password -refreshToken -watchHistory"
+    "-password -refreshToken -watchHistory "
   );
 
   // console.log(loggedInUser);

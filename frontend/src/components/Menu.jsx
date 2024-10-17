@@ -39,7 +39,7 @@ const Menu = () => {
       {/* Menu Content */}
       {isOpen && (
         <div className="absolute right-0 mt-2 w-[226px] origin-top-right transition-colors duration-200 bg-white border border-gray-200 rounded-lg shadow-2xlg ring-1 ring-black ring-opacity-5 focus:outline-none z-30 text-black dark:text-white dark:bg-[#0F0F0F] lg:shadow-none px-3 py-2 custom-scrollbar hide-scrollbar max-h-[90vh] overflow-y-scroll">
-          {user && (
+          {user ? (
             <>
               <div className="flex items-center space-x-3 p-2 ">
                 <img
@@ -70,9 +70,7 @@ const Menu = () => {
                 <span className="text-md">Sign Out</span>
               </div>
             </>
-          )}
-
-          {!user && (
+          ) : (
             <>
               <div
                 onClick={() => setSelectedItem(<SignUp />) || toggleMenu()}

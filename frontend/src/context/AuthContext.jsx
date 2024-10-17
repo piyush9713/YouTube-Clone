@@ -6,7 +6,6 @@ const apiUrl = import.meta.env.VITE_API_URL;
 // Initial state
 const initialState = {
   user: JSON.parse(localStorage.getItem("user")) || null,
-  // user: null,
   isRegistered: false,
 };
 
@@ -29,26 +28,25 @@ export const AuthContext = createContext();
 export const AuthProvider = ({ children }) => {
   const [state, dispatch] = useReducer(authReducer, initialState);
 
-  useEffect(() => {
-    if (state.user) {
-      localStorage.setItem("user", JSON.stringify(state.user));
-    } else {
+  const fetchUser = async () => {
+    try {
+      const response = await axios.get(`${apiUrl}/v1/users/current-user`);
+      // const userData = response?.data?.data;
+      // console.log("userData", userData);
+      // localStorage.setItem("user", JSON.stringify(userData));
+      // dispatch({ type: "SET_USER", payload: userData });
+    } catch (error) {
       localStorage.removeItem("user");
+      console.log(error);
     }
-  }, [state.user]);
+  };
 
-  // useEffect(() => {
-  //   const fetchUser = async () => {
-  //     try {
-  //       const response = await axios.get(`${apiUrl}/v1/users/current-user`);
-  //       const userData = response?.data?.data?.user;
-  //       dispatch({ type: "SET_USER", payload: userData });
-  //     } catch (error) {
-  //       console.log(error);
-  //     }
-  //   };
-  //   fetchUser();
-  // });
+  useEffect(() => {
+    if (localStorage.getItem("user")) {
+      // console.log("fetching user");
+      fetchUser();
+    }
+  }, []);
 
   const handleApiError = (error, defaultMessage = "An error occurred") => {
     const errorMessage = error?.response?.data?.message || defaultMessage;
@@ -58,9 +56,9 @@ export const AuthProvider = ({ children }) => {
 
   const signUp = useCallback(async (data) => {
     try {
-      data;
       await axios.post(`${apiUrl}/v1/users/register`, data);
       dispatch({ type: "SET_REGISTERED", payload: true });
+      // signIn(data);
       toast.success("User registered successfully.");
     } catch (error) {
       handleApiError(error, "Registration failed");
@@ -71,6 +69,7 @@ export const AuthProvider = ({ children }) => {
     try {
       const response = await axios.post(`${apiUrl}/v1/users/login`, data);
       const userData = response?.data?.data?.user;
+      localStorage.setItem("user", JSON.stringify(userData));
       dispatch({ type: "SET_USER", payload: userData });
       toast.success("User logged in successfully.");
     } catch (error) {
@@ -83,6 +82,7 @@ export const AuthProvider = ({ children }) => {
     try {
       await axios.post(`${apiUrl}/v1/users/logout`);
       dispatch({ type: "LOGOUT" });
+      localStorage.removeItem("user");
       toast.success("User logged out successfully.");
     } catch (error) {
       handleApiError(error, "Logout failed");
