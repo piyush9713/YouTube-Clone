@@ -33,6 +33,7 @@ export const AuthProvider = ({ children }) => {
       await axios.get(`${apiUrl}/v1/users/current-user`);
     } catch (error) {
       dispatch({ type: "LOGOUT" });
+      localStorage.removeItem("user");
       console.log(error);
     }
   };
