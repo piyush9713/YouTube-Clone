@@ -30,11 +30,7 @@ export const AuthProvider = ({ children }) => {
 
   const fetchUser = async () => {
     try {
-      const response = await axios.get(`${apiUrl}/v1/users/current-user`);
-      // const userData = response?.data?.data;
-      // console.log("userData", userData);
-      // localStorage.setItem("user", JSON.stringify(userData));
-      // dispatch({ type: "SET_USER", payload: userData });
+      await axios.get(`${apiUrl}/v1/users/current-user`);
     } catch (error) {
       localStorage.removeItem("user");
       console.log(error);
