@@ -64,7 +64,7 @@ const getChannelStats = asyncHandler(async (req, res) => {
         subscribedTo: { $first: "$subscribedTo" },
         totalLikes: { $sum: { $size: "$likedVideos" } },
         totalComments: { $sum: { $size: "$videoComments" } },
-        totalTweets: { $sum: { $size: "$tweets" } },
+        // totalTweets: { $sum: { $size: "$tweets" } },
       },
     },
     {
