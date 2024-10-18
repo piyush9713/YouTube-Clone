@@ -72,11 +72,11 @@ const getChannelStats = asyncHandler(async (req, res) => {
         _id: 0,
         totalVideos: 1,
         totalViews: 1,
-        subscribers: { $size: "$subscribers" }, // Fix: count number of subscribers
-        subscribedTo: { $size: "$subscribedTo" }, // Fix: count number of subscribedTo
+        subscribers: { $size: "$subscribers" },
+        subscribedTo: { $size: "$subscribedTo" },
         totalLikes: 1,
         totalComments: 1,
-        totalTweets: 1,
+        // totalTweets: 1,
       },
     },
   ]);
