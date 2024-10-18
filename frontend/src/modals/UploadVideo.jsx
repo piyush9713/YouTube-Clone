@@ -30,6 +30,7 @@ const UploadVideo = ({ setSelectedItem }) => {
       reset();
       setUploading(false);
       fetchChannelData();
+      setSelectedItem(null);
       toast.success("Video uploaded successfully");
     } catch (error) {
       setUploading(false);

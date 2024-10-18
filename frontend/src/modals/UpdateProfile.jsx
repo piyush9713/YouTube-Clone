@@ -29,6 +29,7 @@ const UpdateProfile = ({ setSelectedItem }) => {
       await updateProfile(formData);
       reset();
       setUpdating(false);
+      setSelectedItem(null);
     } catch (error) {
       setUpdating(false);
       console.log("Error updating profile:", error);

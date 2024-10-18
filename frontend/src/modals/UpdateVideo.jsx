@@ -34,6 +34,7 @@ const UpdateVideo = ({ setSelectedItem, video }) => {
       reset();
       setUpdating(false);
       fetchChannelData();
+      setSelectedItem(null);
       toast.success("Video updated successfully");
     } catch (error) {
       setUpdating(false);
