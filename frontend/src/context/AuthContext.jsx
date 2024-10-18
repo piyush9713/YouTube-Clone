@@ -3,13 +3,11 @@ import axios from "axios";
 import { toast } from "sonner";
 const apiUrl = import.meta.env.VITE_API_URL;
 
-// Initial state
 const initialState = {
   user: JSON.parse(localStorage.getItem("user")) || null,
   isRegistered: false,
 };
 
-// Reducer function to manage state updates
 const authReducer = (state, action) => {
   switch (action.type) {
     case "SET_USER":
@@ -30,11 +28,13 @@ export const AuthProvider = ({ children }) => {
 
   const fetchUser = async () => {
     try {
-      await axios.get(`${apiUrl}/v1/users/current-user`);
+      const response = await axios.get(`${apiUrl}/v1/users/current-user`);
+      if (response?.status === 210) {
+        dispatch({ type: "LOGOUT" });
+        localStorage.removeItem("user");
+      }
     } catch (error) {
-      dispatch({ type: "LOGOUT" });
-      localStorage.removeItem("user");
-      console.log(error);
+      console.log(error?.response?.data?.message);
     }
   };
 

@@ -13,12 +13,11 @@ const getVideoComments = asyncHandler(async (req, res) => {
 
   const skip = (page - 1) * limit;
 
-  // Fetch comments with owner details using populate
   const comments = await Comment.find({ video: videoId })
     .skip(skip)
     .limit(limit)
     .sort({ createdAt: sort })
-    .populate("owner", "username avatar fullName") // Assuming 'owner' references the user schema
+    .populate("owner", "username avatar fullName")
     .exec();
 
   if (!comments || comments.length === 0) {

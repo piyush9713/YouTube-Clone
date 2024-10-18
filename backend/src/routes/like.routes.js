@@ -9,11 +9,11 @@ const {
 } = require("../controllers/like.controller.js");
 const { verifyJWT } = require("../middlewares/auth.middleware.js");
 
-// router.use(verifyJWT); // Apply verifyJWT middleware to all routes in this file
+router.use(verifyJWT);
 
-router.route("/toggle/v/:videoId").post(verifyJWT, toggleVideoLike);
-router.route("/toggle/c/:commentId").post(verifyJWT, toggleCommentLike);
-router.route("/toggle/t/:tweetId").post(verifyJWT, toggleTweetLike);
-router.route("/videos").get(verifyJWT, getLikedVideos);
-router.route("/status/v/:videoId").get(verifyJWT, getLikeStatus);
+router.route("/toggle/v/:videoId").post(toggleVideoLike);
+router.route("/toggle/c/:commentId").post(toggleCommentLike);
+router.route("/toggle/t/:tweetId").post(toggleTweetLike);
+router.route("/videos").get(getLikedVideos);
+router.route("/status/v/:videoId").get(getLikeStatus);
 module.exports = router;

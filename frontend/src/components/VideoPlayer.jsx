@@ -1,4 +1,3 @@
-// src/components/VideoPlayer.js
 import React from "react";
 
 const VideoPlayer = ({ videoData }) => {

@@ -108,20 +108,6 @@ const publishAVideo = asyncHandler(async (req, res) => {
   const videoPublicId = videoFile?.filename;
   const thumbnailPublicId = thumbnailFile?.filename;
 
-  // Retrieve the uploaded video metadata, including duration
-  // const videoMetadata = await cloudinary.api.resource(videoPublicId, {
-  //   resource_type: "video",
-  // });
-  // console.log(videoMetadata);
-
-  // Get the duration of the video
-  // const videoDuration = videoMetadata.duration; // Duration is in seconds
-
-  // Convert the duration to hours, minutes, and seconds
-  // const hours = Math.floor(videoDuration / 3600);
-  // const minutes = Math.floor((videoDuration % 3600) / 60);
-  // const seconds = videoDuration % 60;
-
   const videoPublished = await Video.create({
     title,
     description,
@@ -148,7 +134,6 @@ const getVideoById = asyncHandler(async (req, res) => {
     return res.status(400).json({ error: "Invalid video id" });
   }
 
-  // Fetch video and populate the owner details
   const video = await Video.findById(videoId)
     .populate("owner", "username avatar fullName ")
     .exec();
@@ -164,51 +149,42 @@ const updateVideo = asyncHandler(async (req, res) => {
   const { title, description } = req.body;
   const { videoId } = req.params;
 
-  // Validate video ID
   if (!isValidObjectId(videoId)) {
     return res.status(400).json({ error: "Invalid video id" });
   }
 
-  // Build the update object
   const updateData = {};
 
-  // Check if title or description is provided
   if (title) updateData.title = title;
   if (description) updateData.description = description;
 
-  // Check for a new thumbnail
   const newThumbnail = req.file?.path;
   const newThumbnailPublicId = req.file?.filename;
 
   if (newThumbnail) {
-    // Fetch the video to delete the old thumbnail
     const video = await Video.findById(videoId);
     if (!video) {
       return res.status(404).json({ error: "Video not found" });
     }
 
-    // Delete the old thumbnail from Cloudinary
     await deleteFileFromCloudinary(video.thumbnail.public_id);
 
-    // Add the new thumbnail to the update data
     updateData.thumbnail = {
       url: newThumbnail,
       public_id: newThumbnailPublicId,
     };
   }
 
-  // Update the video with the provided fields using $set
   const updatedVideo = await Video.findByIdAndUpdate(
     videoId,
     { $set: updateData },
-    { new: true } // Return the updated document
+    { new: true }
   );
 
   if (!updatedVideo) {
     return res.status(404).json({ error: "Video not found" });
   }
 
-  // Return the updated video details
   return res.json(
     new ApiResponse(200, updatedVideo, "Video updated successfully")
   );
@@ -275,8 +251,8 @@ const getSubscriberVideos = async (req, res) => {
       owner: { $in: channelIds },
       isPublished: true,
     })
-      .populate("owner", "username avatar") // Populate owner details
-      .sort({ createdAt: -1 }); // Sort by latest videos
+      .populate("owner", "username avatar")
+      .sort({ createdAt: -1 });
 
     // Shuffle the videos array
     const shuffledVideos = videos.sort(() => Math.random() - 0.5);
@@ -296,8 +272,8 @@ const incrementViews = async (req, res) => {
   try {
     const video = await Video.findByIdAndUpdate(
       videoId,
-      { $inc: { views: 1 } }, // Increment views by 1
-      { new: true } // Return the updated document
+      { $inc: { views: 1 } },
+      { new: true }
     );
 
     if (!video) {
@@ -315,26 +291,22 @@ const incrementViews = async (req, res) => {
   }
 };
 
-// Controller to fetch search suggestions
 const getSearchSuggestions = async (req, res) => {
   // console.log(req.query);
   try {
-    const { q } = req.query; // Get query parameter
+    const { q } = req.query;
 
-    // Check if query string is empty
     if (!q || q.trim() === "") {
       return res.status(400).json({ error: "Query cannot be empty" });
     }
 
-    // Use regex to find matching video titles (case-insensitive)
     const suggestions = await Video.find(
-      { title: { $regex: q, $options: "i" } }, // 'i' makes the search case-insensitive
-      { title: 1 } // Only return the 'title' field
-    ).limit(10); // Limit to 10 suggestions
+      { title: { $regex: q, $options: "i" } },
+      { title: 1 }
+    ).limit(10);
 
     // console.log(suggestions);
 
-    // Map to only return titles as an array of strings
     const suggestionTitles = suggestions.map((video) => video.title);
 
     return res

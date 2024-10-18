@@ -2,15 +2,15 @@ import React from "react";
 
 const DotSpinner = () => {
   const spinnerStyle = {
-    "--uib-size": "1.1rem", // Spinner size
+    "--uib-size": "1.1rem",
     "--uib-speed": ".9s",
     "--uib-color": "#ffff",
     position: "relative",
     display: "inline-block",
     height: "var(--uib-size)",
     width: "var(--uib-size)",
-    padding: "0.5rem", // Add padding to avoid cutting
-    overflow: "visible", // Ensure dots aren't cut off
+    padding: "0.5rem",
+    overflow: "visible",
   };
 
   const dotStyle = {
@@ -21,13 +21,13 @@ const DotSpinner = () => {
     width: "100%",
     display: "flex",
     alignItems: "center",
-    justifyContent: "start", // Center the dots
+    justifyContent: "start",
   };
 
   const beforeStyle = {
     content: '""',
     display: "block",
-    height: "20%", // Dot size
+    height: "20%",
     width: "20%",
     borderRadius: "50%",
     backgroundColor: "var(--uib-color)",

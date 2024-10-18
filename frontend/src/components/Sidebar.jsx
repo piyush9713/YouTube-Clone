@@ -7,26 +7,24 @@ import { useNavigate } from "react-router-dom";
 import { BackdropSidebar } from "../utils/BackDrop";
 import { useContext } from "react";
 import { AuthContext } from "../context/AuthContext";
-import { toast } from "sonner"; // Import sonner toast
+import { toast } from "sonner";
 
 const Sidebar = ({ isCollapsed, toggleSidebar }) => {
   const { user } = useContext(AuthContext);
   const username = user?.username || null;
-  const navigate = useNavigate(); // Initialize navigate
+  const navigate = useNavigate();
 
-  // Function to handle click and show toast if not logged in
   const handleClick = (link) => {
-    // Allow access to the home page without login
     if (link === "/") {
-      navigate(link); // Allow navigation to home without login
+      navigate(link);
       return;
     }
 
     // Check login status for other routes
     if (!user) {
-      toast.info("Please log in to access this page..."); // Show info toast
+      toast.info("Please log in to access this page...");
     } else {
-      navigate(link); // Navigate if the user is logged in
+      navigate(link);
     }
   };
 
@@ -61,7 +59,6 @@ const Sidebar = ({ isCollapsed, toggleSidebar }) => {
       title: "Dashboard",
       link: "/dashboard",
     },
-
     // {
     //   icon: <LuAtom size="24px" />,
     //   title: "Demo",
@@ -97,7 +94,7 @@ const Sidebar = ({ isCollapsed, toggleSidebar }) => {
         {SidebarItem.map((item, idx) => (
           <div
             key={idx}
-            onClick={() => handleClick(item.link)} // Call handleClick on click
+            onClick={() => handleClick(item.link)}
             className={`
               flex items-center text-center rounded-md hover:bg-[#F2F2F2] dark:hover:bg-[#272727] space-x-6 p-2 px-3 py-3 my-1 cursor-pointer transition-colors duration-200
             `}>

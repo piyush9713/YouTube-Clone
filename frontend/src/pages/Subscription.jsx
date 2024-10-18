@@ -3,7 +3,6 @@ import { SubscriptionContext } from "../context/subscriptionContext/Subscription
 import Loading from "../components/Loading";
 import CardLoader from "../components/CardLoader";
 
-// Lazy load the Card component
 const Card = lazy(() => import("../components/Card"));
 
 const Subscription = () => {

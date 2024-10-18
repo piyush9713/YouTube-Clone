@@ -33,11 +33,6 @@ const Dashboard = () => {
 
   return (
     <div className="min-h-[80vh]  p-8 flex flex-col items-center">
-      {/* bg-gradient-to-r from-pink-400 via-purple-400 to-indigo-400 */}
-      {/* <h1 className="text-5xl font-extrabold mb-6 text-white drop-shadow-md tracking-wider">
-        Funky Dashboard
-      </h1> */}
-      {/* Free-flowing Flexbox layout */}
       <div className="w-full max-w-6xl flex flex-wrap justify-center gap-6 relative funky-layout">
         <StatCard title="Total Videos" value={stats?.totalVideos || 0} />
         <StatCard title="Total Views" value={stats?.totalViews || 0} />
@@ -45,16 +40,14 @@ const Dashboard = () => {
         <StatCard title="Subscribed To" value={stats?.subscribedTo || 0} />
         <StatCard title="Total Likes" value={stats?.totalLikes || 0} />
         <StatCard title="Total Comments" value={stats?.totalComments || 0} />
-        <StatCard title="Total Tweets" value={stats?.totalTweets || 0} />
       </div>
     </div>
   );
 };
 
 const StatCard = ({ title, value }) => {
-  // Applying random rotation and sizes for funky feel
-  const randomRotation = Math.floor(Math.random() * 20) - 10; // random rotation between -10deg to 10deg
-  const randomScale = Math.random() * (1.2 - 0.8) + 0.8; // random scaling between 0.8x and 1.2x
+  const randomRotation = Math.floor(Math.random() * 20) - 10;
+  const randomScale = Math.random() * (1.2 - 0.8) + 0.8;
 
   return (
     <div

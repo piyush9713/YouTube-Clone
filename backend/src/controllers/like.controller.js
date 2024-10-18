@@ -123,17 +123,14 @@ const getLikedVideos = asyncHandler(async (req, res) => {
   );
 });
 
-// Get like status and like count for a video
 const getLikeStatus = async (req, res) => {
   const { videoId } = req.params;
-  const userId = req?.user?.id; // Assuming you have user info in req.user from authentication middleware
+  const userId = req?.user?.id;
 
   try {
-    // Check if the user has liked the video
     const userLike = await Like.findOne({ video: videoId, likedBy: userId });
     const isLiked = userLike ? true : false;
 
-    // Get the like count for the video
     const likesCount = await Like.countDocuments({ video: videoId });
 
     res.status(200).json(new ApiResponse(200, { isLiked, likesCount }));

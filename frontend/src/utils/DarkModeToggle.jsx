@@ -4,7 +4,6 @@ import { IoSunny } from "react-icons/io5";
 const DarkModeToggle = () => {
   const [darkMode, setDarkMode] = useState(false);
 
-  // Check the user's theme preference on load
   useEffect(() => {
     if (
       localStorage.theme === "dark" ||
@@ -19,7 +18,6 @@ const DarkModeToggle = () => {
     }
   }, []);
 
-  // Toggle dark mode and save the preference to localStorage
   const toggleDarkMode = () => {
     if (darkMode) {
       document.documentElement.classList.remove("dark");

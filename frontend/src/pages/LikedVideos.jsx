@@ -3,7 +3,6 @@ import { LikedVideosContext } from "../context/likedVideoContext/likedVideoProvi
 import Loading from "../components/Loading";
 import CardLoader from "../components/CardLoader";
 
-// Lazy load the Card component
 const Card = lazy(() => import("../components/Card"));
 
 const LikedVideos = () => {

@@ -1,8 +1,8 @@
 import { useEffect, useState } from "react";
 import { RxCross2 } from "react-icons/rx";
-import { IoSearchOutline } from "react-icons/io5"; // Import a search icon
+import { IoSearchOutline } from "react-icons/io5";
 import axios from "axios";
-import { useNavigate } from "react-router-dom"; // Import useNavigate
+import { useNavigate } from "react-router-dom";
 import { toast } from "sonner";
 const apiUrl = import.meta.env.VITE_API_URL;
 
@@ -10,8 +10,8 @@ const SearchBar = ({ isOpen, openSearchBar }) => {
   const [searchQuery, setSearchQuery] = useState("");
   const [suggestions, setSuggestions] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
-  const [inputFocused, setInputFocused] = useState(false); // Track input focus
-  const navigate = useNavigate(); // Initialize navigate
+  const [inputFocused, setInputFocused] = useState(false);
+  const navigate = useNavigate();
   const debounceDelay = 300;
 
   const handleInputChange = (e) => {
@@ -49,11 +49,11 @@ const SearchBar = ({ isOpen, openSearchBar }) => {
   }, [searchQuery]);
 
   const handleSearchSubmit = (query) => {
-    const searchValue = query || searchQuery; // Use query if provided
+    const searchValue = query || searchQuery;
     if (searchValue !== "") {
       navigate(`/search`, { state: { query: searchValue } });
       setSearchQuery("");
-      setSuggestions([]); // Clear suggestions
+      setSuggestions([]);
     }
   };
 
@@ -65,7 +65,7 @@ const SearchBar = ({ isOpen, openSearchBar }) => {
 
   useEffect(() => {
     if (isOpen && window.innerWidth < 640) {
-      document.getElementById("searchInput").focus(); // Auto-focus on small screens
+      document.getElementById("searchInput").focus();
     }
   }, [isOpen]);
 
@@ -93,13 +93,13 @@ const SearchBar = ({ isOpen, openSearchBar }) => {
           autoComplete="off"
           value={searchQuery}
           onChange={handleInputChange}
-          onKeyDown={handleKeyPress} // Handle search on "Enter" press
-          onFocus={() => setInputFocused(true)} // Show left icon on focus
-          onBlur={() => setInputFocused(false)} // Hide left icon when not focused
+          onKeyDown={handleKeyPress}
+          onFocus={() => setInputFocused(true)}
+          onBlur={() => setInputFocused(false)}
           placeholder="Search..."
           className={`w-full dark:bg-[#121212] placeholder:text-slate-400 text-md border border-[#CCCCCC] dark:border-[#222222] bg[#222222] py-2 ease focus:outline-none dark:focus:border-[#1B5DAF] dark:hover:border-slate-600 focus:border-[#1B5DAF] hover:border-slate-300 shadow-sm focus:shadow dark:text-white transition-colors duration-200 ${
             inputFocused ? "pl-11" : "pl-4"
-          } rounded-full`} // Adjust padding and rounding corners based on focus
+          } rounded-full`}
         />
 
         {/* Left search icon, visible only when input is focused */}
@@ -109,20 +109,11 @@ const SearchBar = ({ isOpen, openSearchBar }) => {
             className="absolute left-4 top-1/2 transform -translate-y-1/2"
           />
         )}
-
-        {/* Right search icon with background color */}
-        {/* <div className="w-16 h-[42px] absolute -right-0.5 top-1/2 transform -translate-y-1/2 cursor-pointer rounded-r-full dark:bg-[#222222] flex items-center justify-center bg-[#F0F0F0] border border-[#CCCCCC] dark:border-[#222222]">
-          <IoSearchOutline
-            size={26}
-            className="hidden sm:block"
-            onClick={() => handleSearchSubmit()}
-          />
-        </div> */}
         <div className="w-16 h-[42px] absolute -right-0.5 top-1/2 transform -translate-y-1/2 cursor-pointer rounded-r-full dark:bg-[#222222] flex items-center justify-center bg-[#F0F0F0] border border-[#CCCCCC] dark:border-[#222222]">
           <IoSearchOutline
             size={26}
             className="hidden sm:block"
-            onClick={() => handleSearchSubmit()} // No event object passed, just trigger the function
+            onClick={() => handleSearchSubmit()}
           />
         </div>
       </div>
@@ -134,8 +125,7 @@ const SearchBar = ({ isOpen, openSearchBar }) => {
             <li
               key={index}
               className="p-2 hover:bg-[#F2F2F2] dark:hover:bg-[#272727] cursor-pointer"
-              onClick={() => handleSearchSubmit(suggestion)} // Search on suggestion click
-            >
+              onClick={() => handleSearchSubmit(suggestion)}>
               <div className="flex items-center">
                 <IoSearchOutline
                   size={20}

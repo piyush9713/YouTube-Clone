@@ -14,8 +14,6 @@ const {
 const { verifyJWT } = require("../middlewares/auth.middleware.js");
 const { upload } = require("../middlewares/upload.middleware.js");
 
-// router.use(verifyJWT); // Apply verifyJWT middleware to all routes in this file
-
 router
   .route("/")
   .get(getAllVideos)

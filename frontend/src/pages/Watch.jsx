@@ -1,4 +1,3 @@
-// src/App.js
 import React, { useCallback, useContext, useEffect } from "react";
 import { useParams } from "react-router-dom";
 import VideoComment from "../components/VideoComment";
@@ -11,7 +10,7 @@ import { VideoDataContext } from "../context/videoDataContext/VideoDataProvider"
 const apiUrl = import.meta.env.VITE_API_URL;
 
 const Watch = () => {
-  const { videoId } = useParams(); // Get the videoId from the URL
+  const { videoId } = useParams();
   const { videoData, loading, fetchVideoData } = useContext(VideoDataContext);
   const { user } = useContext(AuthContext);
 

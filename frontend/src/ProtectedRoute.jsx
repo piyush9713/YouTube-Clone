@@ -6,11 +6,9 @@ const ProtectedRoute = ({ element }) => {
   const { user } = useContext(AuthContext);
 
   if (!user) {
-    // Redirect to the home page if not logged in
     return <Navigate to="/" replace state={{ showToast: true }} />;
   }
 
-  // If logged in, render the protected component
   return element;
 };
 

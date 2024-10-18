@@ -35,13 +35,6 @@ const SignIn = ({ setSelectedItem }) => {
     }
   };
 
-  // useEffect(() => {
-  //   if (user) {
-  //     navigate("/");
-  //     setSelectedItem(null);
-  //   }
-  // }, [user, navigate, setSelectedItem]);
-
   return (
     <div className="fixed inset-0 flex items-center justify-center z-50 bg-black bg-opacity-60">
       <main className="w-full h-screen flex flex-col items-center justify-center p-4">

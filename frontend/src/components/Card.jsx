@@ -9,7 +9,7 @@ const Card = ({ video }) => {
       <Link to={`/watch/${video?._id}`}>
         <LazyLoadImage
           className="w-full aspect-video object-cover "
-          src={video?.thumbnail?.url || "default_image.png"} // Dynamic thumbnail
+          src={video?.thumbnail?.url || "default_image.png"}
           alt="Video Thumnail"
         />
       </Link>

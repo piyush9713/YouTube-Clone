@@ -25,7 +25,8 @@ const SignUp = ({ setSelectedItem }) => {
       await signUp(data);
       reset();
       setRegistering(false);
-      setSelectedItem(<SignIn />);
+      // setSelectedItem(<SignIn />);
+      setSelectedItem(null);
     } catch (error) {
       setRegistering(false);
       console.log("Error signing up:", error);

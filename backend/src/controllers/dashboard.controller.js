@@ -4,13 +4,10 @@ const ApiError = require("../utils/ApiError.js");
 const Video = require("../models/video.model.js");
 
 const getChannelStats = asyncHandler(async (req, res) => {
-  // Check for unauthorized access
   if (!req.user._id) {
     throw new ApiError(400, "Unauthorized access");
   }
-
   const userId = req.user._id;
-
   const channelStats = await Video.aggregate([
     {
       $match: { owner: userId },
@@ -64,7 +61,7 @@ const getChannelStats = asyncHandler(async (req, res) => {
         subscribedTo: { $first: "$subscribedTo" },
         totalLikes: { $sum: { $size: "$likedVideos" } },
         totalComments: { $sum: { $size: "$videoComments" } },
-        // totalTweets: { $sum: { $size: "$tweets" } },
+        totalTweets: { $sum: { $size: "$tweets" } },
       },
     },
     {
@@ -76,7 +73,7 @@ const getChannelStats = asyncHandler(async (req, res) => {
         subscribedTo: { $size: "$subscribedTo" },
         totalLikes: 1,
         totalComments: 1,
-        // totalTweets: 1,
+        totalTweets: 1,
       },
     },
   ]);

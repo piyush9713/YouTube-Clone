@@ -164,7 +164,6 @@ const updateAccountDetails = asyncHandler(async (req, res) => {
   const { username, fullName } = req.body;
 
   // console.log(req.body);
-
   // console.log(req.files);
 
   let avatarURL = req.user.avatar?.url;
@@ -193,8 +192,6 @@ const updateAccountDetails = asyncHandler(async (req, res) => {
       deleteFileFromCloudinary(req.user.coverImage.public_id);
     }
   }
-
-  // Update user information in the database
 
   try {
     const user = await User.findByIdAndUpdate(
@@ -306,7 +303,7 @@ const getWatchHistory = asyncHandler(async (req, res) => {
         pipeline: [
           {
             $match: {
-              isPublished: true, // Filter only published videos
+              isPublished: true,
             },
           },
           {
@@ -377,8 +374,6 @@ module.exports = {
   changeCurrentPassword,
   getCurrentUser,
   updateAccountDetails,
-  // updateUserAvatar,
-  // updateUserCoverImage,
   getUserChannelProfile,
   getWatchHistory,
   SaveWatchHistory,

@@ -7,18 +7,15 @@ const Subscription = require("../models/subscription.model.js");
 const toggleSubscription = asyncHandler(async (req, res) => {
   const { channelId } = req.params;
 
-  // Validate if the channelId is a valid ObjectId
   if (!isValidObjectId(channelId)) {
     return res.status(400).json({ error: "Channel not found" });
   }
 
-  // Check if the user is already subscribed to the channel
   const subscriptionCheck = await Subscription.findOne({
     channel: channelId,
     subscriber: req.user._id,
   });
 
-  // If already subscribed, remove the subscription
   if (subscriptionCheck) {
     await Subscription.deleteOne({ _id: subscriptionCheck._id });
     return res
@@ -26,7 +23,6 @@ const toggleSubscription = asyncHandler(async (req, res) => {
       .json(new ApiResponse(200, {}, "Subscription removed successfully"));
   }
 
-  // Otherwise, create a new subscription
   const createSubscription = await Subscription.create({
     channel: channelId,
     subscriber: req.user._id,
@@ -62,7 +58,6 @@ const getUserChannelSubscribers = asyncHandler(async (req, res) => {
     );
 });
 
-// controller to return channel list to which user has subscribed
 const getSubscribedChannels = asyncHandler(async (req, res) => {
   const { subscriberId } = req.params;
 
@@ -87,10 +82,9 @@ const getSubscribedChannels = asyncHandler(async (req, res) => {
 
 const getSubscriptionStatus = async (req, res) => {
   const { channelId } = req.params;
-  const userId = req.user.id; // Assuming user info is stored in req.user
+  const userId = req.user.id;
 
   try {
-    // Check if the user is subscribed to the channel
     const userSubscription = await Subscription.findOne({
       channel: channelId,
       subscriber: userId,

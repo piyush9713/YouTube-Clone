@@ -4,7 +4,6 @@ import { suggestions } from "../constants/SuggestionItems";
 const SearchSuggestions = () => {
   const scrollContainerRef = useRef(null);
 
-  // Scroll left or right by a set amount (e.g., 200px)
   const scroll = (direction) => {
     const scrollAmount = direction === "left" ? -200 : 200;
     scrollContainerRef.current.scrollBy({
@@ -14,7 +13,7 @@ const SearchSuggestions = () => {
   };
 
   return (
-    <div className="relative sticky z-30 top-0 bg-white text-black dark:text-white dark:bg-[#0F0F0F] py-3  sm:py-4 sm:mx-4 lg:ml-0 left-0 right-0 px-2 sm:px-0 ">
+    <div className="relative z-30 top-0 bg-white text-black dark:text-white dark:bg-[#0F0F0F] py-3  sm:py-4 sm:mx-4 lg:ml-0 left-0 right-0 px-2 sm:px-0 ">
       {/* Left Arrow - hidden on small screens */}
       <button
         onClick={() => scroll("left")}

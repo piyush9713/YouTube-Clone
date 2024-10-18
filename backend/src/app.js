@@ -6,15 +6,7 @@ const app = express();
 
 app.use(cors({ origin: process.env.CORS_ORIGIN || "*", credentials: true }));
 
-// // Serve static files from the dist directory
-// app.use(express.static(path.join(__dirname, "dist")));
-
-// // For SPA, serve index.html for unmatched routes
-// app.get("*", (req, res) => {
-//   res.sendFile(path.join(__dirname, "dist", "index.html"));
-// });
-
-app.use(express.json({ limit: "900mb" }));
+app.use(express.json({ limit: "16kb" }));
 app.use(express.urlencoded({ extended: true, limit: "16kb" }));
 app.use(express.static("public"));
 app.use(cookieParser());

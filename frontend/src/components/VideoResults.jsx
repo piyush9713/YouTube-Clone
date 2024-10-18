@@ -9,7 +9,7 @@ import { toast } from "sonner";
 const apiUrl = import.meta.env.VITE_API_URL;
 
 const VideoResults = () => {
-  const { state } = useLocation(); // Get the query from location state
+  const { state } = useLocation();
   const [videos, setVideos] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
 

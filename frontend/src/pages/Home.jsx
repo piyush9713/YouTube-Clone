@@ -8,7 +8,6 @@ import DotSpinner from "../components/DotSpinner";
 import { useLocation } from "react-router-dom";
 import { toast } from "sonner";
 
-// Lazy load components
 const Card = lazy(() => import("../components/Card"));
 
 const Home = () => {
@@ -18,12 +17,12 @@ const Home = () => {
 
   useEffect(() => {
     if (location.state?.showToast) {
-      // Show toast message after navigation
+
       toast.info("Please log in to access this page");
     }
   }, [location]);
 
-  // Use useCallback to memoize fetchMoreData and avoid unnecessary re-renders
+  
   const fetchMoreData = useCallback(async () => {
     if (nextPage) {
       // console.log("Fetching more videos", nextPage);

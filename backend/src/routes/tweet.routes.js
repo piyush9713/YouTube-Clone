@@ -8,7 +8,7 @@ const {
 } = require("../controllers/tweet.controller.js");
 const { verifyJWT } = require("../middlewares/auth.middleware.js");
 
-router.use(verifyJWT); // Apply verifyJWT middleware to all routes in this file
+router.use(verifyJWT);
 
 router.route("/").post(createTweet);
 router.route("/user/:userId").get(getUserTweets);

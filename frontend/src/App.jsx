@@ -17,6 +17,7 @@ import { Toaster } from "sonner";
 import ProtectedRoute from "./ProtectedRoute";
 import Dashboard from "./pages/Dashboard";
 import VideoResults from "./components/VideoResults";
+import Demo from "./components/Demo";
 
 const router = createBrowserRouter([
   {
@@ -54,6 +55,10 @@ const router = createBrowserRouter([
       {
         path: "/dashboard",
         element: <ProtectedRoute element={<Dashboard />} />,
+      },
+      {
+        path: "/demo",
+        element: <ProtectedRoute element={<Demo />} />,
       },
     ],
   },

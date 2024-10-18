@@ -2,14 +2,12 @@ const multer = require("multer");
 const { CloudinaryStorage } = require("multer-storage-cloudinary");
 const cloudinary = require("../utils/cloudinary");
 
-// Configure Multer-Storage-Cloudinary to handle both videos and images
 const storage = new CloudinaryStorage({
   cloudinary: cloudinary,
   params: async (req, file) => {
-    let folder = "uploads"; // Default folder
-    let resourceType = "auto"; // Default resource type
+    let folder = "uploads";
+    let resourceType = "auto";
 
-    // Set resource type based on the file's mimetype
     if (file.mimetype.startsWith("video")) {
       folder = "video_uploads";
       resourceType = "video";
@@ -17,16 +15,14 @@ const storage = new CloudinaryStorage({
       folder = "image_uploads";
       resourceType = "image";
     }
-
     return {
       folder: folder,
       resource_type: resourceType,
-      public_id: file.originalname.split(".")[0], // Save with the original filename
+      public_id: file.originalname.split(".")[0],
     };
   },
 });
 
-// Multer middleware to handle multiple files
 const upload = multer({ storage });
 
 module.exports = { upload };

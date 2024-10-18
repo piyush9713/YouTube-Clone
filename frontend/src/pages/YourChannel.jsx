@@ -4,7 +4,6 @@ import { YourChannelContext } from "../context/yourChannelContext/YourChannelPro
 import Loading from "../components/Loading";
 import CardLoader from "../components/CardLoader";
 
-// Lazy load components
 const ChannelCard = lazy(() => import("../components/ChannelCard"));
 
 const YourChannel = () => {
@@ -39,7 +38,6 @@ const YourChannel = () => {
       </div>
       <h2 className="text-xl font-semibold mt-6">Uploaded Videos</h2>
       {loading && <Loading />}
-      {/* <div className="py-4 lg:pl-0 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-5"> */}
       <div className="pt-3 sm:px-4 lg:pl-0 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-3 gap-5 mb-3">
         {Array.isArray(channelVideos) && channelVideos.length > 0
           ? channelVideos.map((video) => (
